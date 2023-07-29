@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.earlyEateries.Mappers.MappingData;
 import com.example.earlyEateries.dto.UserRequestResponse;
 import com.example.earlyEateries.entity.User;
 import com.example.earlyEateries.exception.ResourceNotFoundException;
@@ -18,17 +19,22 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
-
+	
+	@Autowired
+	private MappingData mappingData;
+	
+	
+	
 	@Override
 	public UserRequestResponse create(UserRequestResponse userRequestResponse) {
 		
-		User user = this.dtoToUser(userRequestResponse);
+		User user = this.mappingData.dtoToUser(userRequestResponse);
 		
 		User savedUser = this.userRepository.save(user);
 		
 		
 		// TODO Auto-generated method stub
-		return this.userToDto(savedUser);
+		return this.mappingData.userToDto(savedUser);
 	}
 
 	@Override
@@ -47,7 +53,7 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(userRequestResponse.getPassword());
 		
 		User updatedUser = this.userRepository.save(user);
-		return  this.userToDto(updatedUser);
+		return  this.mappingData.userToDto(updatedUser);
 	}
 
 	@Override
@@ -58,10 +64,10 @@ public class UserServiceImpl implements UserService {
 		Optional<User> optionalUser = this.userRepository.findById(id);
 		
 		if(Objects.isNull(optionalUser)) {
-			 new  ResourceNotFoundException("User","id", id);
+			 new ResourceNotFoundException("User","id", id);
 			}
 		User user = optionalUser.get();
-		return this.userToDto(user);
+		return this.mappingData.userToDto(user);
 	}
 
 	@Override
@@ -69,7 +75,7 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		List<User> userList = this.userRepository.findAll();
 		
-		List<UserRequestResponse> userRequestResponsesList = userList.stream().map(user-> this.userToDto(user)).collect(Collectors.toList());
+		List<UserRequestResponse> userRequestResponsesList = userList.stream().map(user-> this.mappingData.userToDto(user)).collect(Collectors.toList());
 		return  userRequestResponsesList;
 	}
 
@@ -85,22 +91,6 @@ Optional<User> optionalUser = this.userRepository.findById(id);
 
 	}
 	
-	private  User dtoToUser(UserRequestResponse userRequestResponse) {
-		User user = new User();
-		 user.setEmail(userRequestResponse.getEmail());
-		user.setName(userRequestResponse.getName());
-		user.setPassword(userRequestResponse.getPassword());	
-		return user;
-	}
 	
-	
-	private  UserRequestResponse userToDto(User user) {
-		UserRequestResponse userRequestResponse = new UserRequestResponse();
-		userRequestResponse.setEmail(user.getEmail());
-		userRequestResponse.setName(user.getName());
-		userRequestResponse.setPassword(user.getPassword());	
-		userRequestResponse.setId(user.getId());
-		return userRequestResponse;
-	}
 
 }

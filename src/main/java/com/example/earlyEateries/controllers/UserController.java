@@ -1,7 +1,6 @@
 package com.example.earlyEateries.controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,8 @@ import com.example.earlyEateries.dto.ApiResponse;
 import com.example.earlyEateries.dto.UserRequestResponse;
 import com.example.earlyEateries.service.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("api/v1/user")
 public class UserController {
@@ -26,7 +27,7 @@ public class UserController {
 	UserService userService;
 	
 	@PostMapping("/")
-	public ResponseEntity<UserRequestResponse> create(@RequestBody UserRequestResponse userRequestResponse){
+	public ResponseEntity<UserRequestResponse> create(@Valid @RequestBody UserRequestResponse userRequestResponse){
 		
 		UserRequestResponse createdRequestResponse = this.userService.create(userRequestResponse);
 		
@@ -37,7 +38,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-     public ResponseEntity<UserRequestResponse> update(@RequestBody UserRequestResponse userRequestResponse, @PathVariable("id") Long id){
+     public ResponseEntity<UserRequestResponse> update(@Valid @RequestBody UserRequestResponse userRequestResponse, @PathVariable("id") Long id){
 		
 		UserRequestResponse updatedRequestResponse = this.userService.update(userRequestResponse, id);
 		
