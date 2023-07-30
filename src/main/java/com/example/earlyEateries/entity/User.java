@@ -1,6 +1,9 @@
 package com.example.earlyEateries.entity;
 
  
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,5 +28,10 @@ public class User {
 	
 	@Column(name = "password", nullable  =false ,length =200)
     private String password;
+	
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+	private List<Eatery> eateryItems  =  new ArrayList<>();
+	
 	
 }

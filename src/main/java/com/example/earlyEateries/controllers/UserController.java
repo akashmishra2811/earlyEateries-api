@@ -50,7 +50,7 @@ public class UserController {
 	@GetMapping("/")
 	public ResponseEntity<List<UserRequestResponse>> get(){
 		
-		List<UserRequestResponse> userRequestResponseList = this.userService.getAllUsers();
+		List<UserRequestResponse> userRequestResponseList = this.userService.getAll();
 		
 		
 		return new ResponseEntity<>(userRequestResponseList,HttpStatus.OK);
@@ -61,7 +61,7 @@ public class UserController {
 	@GetMapping("/{id}")
 	public ResponseEntity<UserRequestResponse> getById(@PathVariable("id") Long id){
 		
-	   UserRequestResponse userRequestResponse = this.userService.getUserById(id);
+	   UserRequestResponse userRequestResponse = this.userService.getById(id);
 		
 		
 		return new ResponseEntity<>(userRequestResponse,HttpStatus.OK);

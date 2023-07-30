@@ -28,20 +28,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserRequestResponse create(UserRequestResponse userRequestResponse) {
 		
-		User user = this.mappingData.dtoToUser(userRequestResponse);
-		
+		User user = this.mappingData.dtoToUser(userRequestResponse);		
 		User savedUser = this.userRepository.save(user);
 		
-		
-		// TODO Auto-generated method stub
 		return this.mappingData.userToDto(savedUser);
 	}
 
 	@Override
 	public UserRequestResponse update(UserRequestResponse userRequestResponse, Long id) {
-		// TODO Auto-generated method stub
-		
-	Optional<User> optionalUser = this.userRepository.findById(id);
+	
+	   Optional<User> optionalUser = this.userRepository.findById(id);
 		
 		if(Objects.isNull(optionalUser)) {
 		 new  ResourceNotFoundException("User","id", id);
@@ -51,15 +47,13 @@ public class UserServiceImpl implements UserService {
 		user.setEmail(userRequestResponse.getEmail());
 		user.setName(userRequestResponse.getName());
 		user.setPassword(userRequestResponse.getPassword());
-		
 		User updatedUser = this.userRepository.save(user);
+		
 		return  this.mappingData.userToDto(updatedUser);
 	}
 
 	@Override
-	public UserRequestResponse getUserById(Long id) {
-		// TODO Auto-generated method stub
-	
+	public UserRequestResponse getById(Long id) {
 	
 		Optional<User> optionalUser = this.userRepository.findById(id);
 		
@@ -71,8 +65,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserRequestResponse> getAllUsers() {
-		// TODO Auto-generated method stub
+	public List<UserRequestResponse> getAll() {
+
 		List<User> userList = this.userRepository.findAll();
 		
 		List<UserRequestResponse> userRequestResponsesList = userList.stream().map(user-> this.mappingData.userToDto(user)).collect(Collectors.toList());
@@ -82,7 +76,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(Long id) {
 		
-Optional<User> optionalUser = this.userRepository.findById(id);
+        Optional<User> optionalUser = this.userRepository.findById(id);
 		
 		if(Objects.isNull(optionalUser)) {
 			 new  ResourceNotFoundException("User","id", id);
