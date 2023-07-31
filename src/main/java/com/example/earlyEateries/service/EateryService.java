@@ -9,7 +9,7 @@ public interface EateryService {
 	EateryRequestResponse create(EateryRequestResponse eatery);
 	EateryRequestResponse update(EateryRequestResponse eatery, Long id);
 	EateryRequestResponse getById(Long id);
-	List<EateryRequestResponse> getAll();
+	List<EateryRequestResponse> getAll(Integer pageNumber ,Integer pageSize);
 	void delete(Long id);
 
 }

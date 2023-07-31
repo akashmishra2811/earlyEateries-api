@@ -1,11 +1,15 @@
 package com.example.earlyEateries.service.impl;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.earlyEateries.Mappers.MappingData;
@@ -69,12 +73,15 @@ public class EateryServiceImpl implements EateryService {
 		 if(Objects.isNull(eatery)) {
 			 new  ResourceNotFoundException("Eatery","id", eateryId);
 			}
+	
 		 final Long savedUserId = eatery.getUser().getId();
+		 long value1 =savedUserId.longValue();
+		 long value2 =userId.longValue();
 		 //need to look in this  pending
-//		 if(Long.compare(savedUserId)) {
-//			 new  ResourceNotFoundException("Eatery","id", eateryId);
-//		 }
-//		 
+		 if(Long.compare(value1, value2)  !=0) {
+			 new  ResourceNotFoundException("Eatery","id", eateryId);
+		 }
+		 
 	
 		 
 		  eatery.setEateryName(eateryRequestResponse.getEateryName());
@@ -98,8 +105,12 @@ public class EateryServiceImpl implements EateryService {
 	}
 
 	@Override
-	public List<EateryRequestResponse> getAll() {
-        List<Eatery> eateryList = this.eateryRespositroy.findAll();
+	public List<EateryRequestResponse> getAll(Integer pageNumber , Integer pageSize) {
+		
+		//need to work on pagination
+ //        PageRequest p =  PageRequest.of(pageNumber, pageSize);
+ 
+      List<Eatery> eateryList =  this.eateryRespositroy.findAll();
 		
 		List<EateryRequestResponse> eateryRequestResponsesList = eateryList.stream().map(eatery-> this.mappingData.eateryToDto(eatery)).collect(Collectors.toList());
 		return  eateryRequestResponsesList;

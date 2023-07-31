@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.earlyEateries.dto.ApiResponse;
@@ -27,7 +28,7 @@ public class EateryController {
 	 @Autowired
 	private EateryService eateryService;
 	
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<EateryRequestResponse> create(@Valid @RequestBody EateryRequestResponse eateryRequestResponse){
 		
 		EateryRequestResponse createdEateryRequestResponse = this.eateryService.create(eateryRequestResponse);
@@ -48,10 +49,10 @@ public class EateryController {
 		
 	}
 	
-	@GetMapping("/")
-	public ResponseEntity<List<EateryRequestResponse>> get(){
+	@GetMapping("")
+	public ResponseEntity<List<EateryRequestResponse>> get(@RequestParam(value ="pageNumber", defaultValue ="1") Integer pageNumber,@RequestParam(value ="pageSize", defaultValue ="25") Integer pageSize){
 		
-		List<EateryRequestResponse> eateryRequestResponseList = this.eateryService.getAll();
+		List<EateryRequestResponse> eateryRequestResponseList = this.eateryService.getAll(pageNumber,pageSize);
 		
 		
 		return new ResponseEntity<>(eateryRequestResponseList,HttpStatus.OK);
