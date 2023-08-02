@@ -2,6 +2,7 @@ package com.example.earlyEateries.service;
 
 import java.util.List;
 
+import com.example.earlyEateries.dto.EateryPaginationResponse;
 import com.example.earlyEateries.dto.EateryRequestResponse;
 
 public interface EateryService {
@@ -9,7 +10,7 @@ public interface EateryService {
 	EateryRequestResponse create(EateryRequestResponse eatery);
 	EateryRequestResponse update(EateryRequestResponse eatery, Long id);
 	EateryRequestResponse getById(Long id);
-	List<EateryRequestResponse> getAll(Integer pageNumber ,Integer pageSize);
+	EateryPaginationResponse getAll(Integer pageNumber ,Integer pageSize,String sortBy);
 	void delete(Long id);
 
 }

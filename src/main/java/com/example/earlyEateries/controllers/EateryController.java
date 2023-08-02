@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.earlyEateries.dto.ApiResponse;
+import com.example.earlyEateries.dto.EateryPaginationResponse;
 import com.example.earlyEateries.dto.EateryRequestResponse;
 import com.example.earlyEateries.service.EateryService;
 
@@ -50,9 +51,11 @@ public class EateryController {
 	}
 	
 	@GetMapping("")
-	public ResponseEntity<List<EateryRequestResponse>> get(@RequestParam(value ="pageNumber", defaultValue ="1") Integer pageNumber,@RequestParam(value ="pageSize", defaultValue ="25") Integer pageSize){
+	public ResponseEntity<EateryPaginationResponse> get(@RequestParam(value ="pageNumber", defaultValue ="0") Integer pageNumber,
+			@RequestParam(value ="pageSize", defaultValue ="25") Integer pageSize,
+			@RequestParam(value ="sortBy", defaultValue ="eateryId") String sortBy){
 		
-		List<EateryRequestResponse> eateryRequestResponseList = this.eateryService.getAll(pageNumber,pageSize);
+		EateryPaginationResponse eateryRequestResponseList = this.eateryService.getAll(pageNumber,pageSize,sortBy);
 		
 		
 		return new ResponseEntity<>(eateryRequestResponseList,HttpStatus.OK);

@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.earlyEateries.Mappers.MappingData;
+import com.example.earlyEateries.dto.EateryPaginationResponse;
 import com.example.earlyEateries.dto.EateryRequestResponse;
 import com.example.earlyEateries.entity.Eatery;
 import com.example.earlyEateries.entity.User;
@@ -22,6 +24,7 @@ import com.example.earlyEateries.repository.UserRepository;
 import com.example.earlyEateries.service.EateryService;
 
 import jakarta.validation.constraints.AssertTrue;
+
 
 @Service
 public class EateryServiceImpl implements EateryService {
@@ -105,15 +108,26 @@ public class EateryServiceImpl implements EateryService {
 	}
 
 	@Override
-	public List<EateryRequestResponse> getAll(Integer pageNumber , Integer pageSize) {
+	public EateryPaginationResponse getAll(Integer pageNumber , Integer pageSize ,String sortBy) {
+		 
 		
-		//need to work on pagination
- //        PageRequest p =  PageRequest.of(pageNumber, pageSize);
+		
+	  PageRequest p =  PageRequest.of(pageNumber, pageSize,Sort.by(sortBy));
  
-      List<Eatery> eateryList =  this.eateryRespositroy.findAll();
+     Page<Eatery> eateryPage =  this.eateryRespositroy.findAll(p);
+     List<Eatery> eateryList =eateryPage.getContent();
 		
 		List<EateryRequestResponse> eateryRequestResponsesList = eateryList.stream().map(eatery-> this.mappingData.eateryToDto(eatery)).collect(Collectors.toList());
-		return  eateryRequestResponsesList;
+		
+		EateryPaginationResponse eateryPaginationResponse = new EateryPaginationResponse();
+		eateryPaginationResponse.setContent(eateryRequestResponsesList);
+		eateryPaginationResponse.setPageNumber(eateryPage.getNumber());
+		eateryPaginationResponse.setPageSize(eateryPage.getSize());
+		eateryPaginationResponse.setTotalElements(eateryPage.getTotalElements());
+		eateryPaginationResponse.setTotalPages(eateryPage.getTotalPages());
+		eateryPaginationResponse.setLastPage(eateryPage.isLast());
+		
+		return  eateryPaginationResponse;
 
 	}
 
