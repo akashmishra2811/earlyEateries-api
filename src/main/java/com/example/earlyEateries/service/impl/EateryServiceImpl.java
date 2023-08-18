@@ -100,11 +100,20 @@ public class EateryServiceImpl implements EateryService {
 	}
 
 	
-	//not needed now
+	
 	@Override
-	public EateryRequestResponse getById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public EateryRequestResponse getById(Long eateryId) {
+	
+		
+		Eatery eatery = eateryRespositroy.findById(eateryId).get();
+		 
+		 
+		 if(Objects.isNull(eatery)) {
+			 new  ResourceNotFoundException("Eatery","id", eateryId);
+			}
+		
+		 
+		 return this.mappingData.eateryToDto(eatery);
 	}
 
 	@Override
@@ -133,7 +142,6 @@ public class EateryServiceImpl implements EateryService {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		
 		  Optional<Eatery> optionalEatery = this.eateryRespositroy.findById(id);
 			

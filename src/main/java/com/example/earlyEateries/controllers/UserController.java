@@ -19,14 +19,14 @@ import com.example.earlyEateries.dto.UserRequestResponse;
 import com.example.earlyEateries.service.UserService;
 
 import jakarta.validation.Valid;
-
+import com.example.earlyEateries.config.ApiConstants;
 @RestController
-@RequestMapping("api/v1/user")
+@RequestMapping(ApiConstants.User.END_POINT)
 public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<UserRequestResponse> create(@Valid @RequestBody UserRequestResponse userRequestResponse){
 		
 		UserRequestResponse createdRequestResponse = this.userService.create(userRequestResponse);
@@ -47,7 +47,7 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<List<UserRequestResponse>> get(){
 		
 		List<UserRequestResponse> userRequestResponseList = this.userService.getAll();

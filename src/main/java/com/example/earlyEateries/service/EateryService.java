@@ -1,6 +1,6 @@
 package com.example.earlyEateries.service;
 
-import java.util.List;
+
 
 import com.example.earlyEateries.dto.EateryPaginationResponse;
 import com.example.earlyEateries.dto.EateryRequestResponse;
