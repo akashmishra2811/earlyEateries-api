@@ -146,7 +146,7 @@ public class EateryServiceImpl implements EateryService {
 		  Optional<Eatery> optionalEatery = this.eateryRespositroy.findById(id);
 			
 			if(Objects.isNull(optionalEatery)) {
-				 new  ResourceNotFoundException("User","id", id);
+				 new  ResourceNotFoundException("Eatery","id", id);
 				}
 		     this.eateryRespositroy.delete(optionalEatery.get());
 

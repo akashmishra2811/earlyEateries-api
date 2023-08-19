@@ -2,7 +2,9 @@ package com.example.earlyEateries.entity;
 
  
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,6 +34,10 @@ public class User {
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
 	private List<Eatery> eateryItems  =  new ArrayList<>();
+	
+	
+	@OneToMany(mappedBy =  "user", cascade = CascadeType.ALL)
+	private Set<Comment> comments = new HashSet<>();	
 	
 	
 }

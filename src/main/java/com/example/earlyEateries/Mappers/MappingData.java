@@ -4,8 +4,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.earlyEateries.dto.CommentRequestResponse;
 import com.example.earlyEateries.dto.EateryRequestResponse;
 import com.example.earlyEateries.dto.UserRequestResponse;
+import com.example.earlyEateries.entity.Comment;
 import com.example.earlyEateries.entity.Eatery;
 import com.example.earlyEateries.entity.User;
 
@@ -40,5 +42,19 @@ public class MappingData {
 		 EateryRequestResponse eateryRequestResponse = modelMapper.map(eatery, EateryRequestResponse.class);
 		 
 		 return eateryRequestResponse;
+	 }
+	 
+     public Comment dtoToComment(CommentRequestResponse commentRequestResponse) {
+		 
+		 Comment comment = modelMapper.map(commentRequestResponse, Comment.class);
+		 
+		 return comment;
+	 }
+	 
+	 public CommentRequestResponse commentToDto ( Comment comment) {
+		 
+		 CommentRequestResponse commentRequestResponse = modelMapper.map(comment, CommentRequestResponse.class);
+		 
+		 return commentRequestResponse;
 	 }
 }

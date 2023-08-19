@@ -14,6 +14,10 @@ public class ApiConstants {
 	public class User{
 		public static final String END_POINT = BASE_URL + "user";
 	}
+	
+	public class Comment{
+		public static final String END_POINT = BASE_URL + "comment";
+	}
 	public class FileService{
 		
 		public static final String UPLOAD =	"/upload/image/{eateryId}";
