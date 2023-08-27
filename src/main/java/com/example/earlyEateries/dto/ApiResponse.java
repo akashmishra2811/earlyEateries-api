@@ -14,4 +14,6 @@ public class ApiResponse {
 	private String message;
 	private Boolean success;
 
+    public ApiResponse(String errMessage, boolean b) {
+    }
 }

@@ -15,8 +15,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.example.earlyEateries.dto.ApiResponse;
 
-import net.bytebuddy.asm.Advice.Return;
-
 @RestControllerAdvice
 public class RestExceptionHandler {
 

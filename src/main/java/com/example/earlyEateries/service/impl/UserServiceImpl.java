@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	   Optional<User> optionalUser = this.userRepository.findById(id);
 		
 		if(Objects.isNull(optionalUser)) {
-		 new  ResourceNotFoundException("User","id", id);
+            throw new ResourceNotFoundException("User", "id", id);
 		}
 		 User user =  optionalUser.get();
 		 

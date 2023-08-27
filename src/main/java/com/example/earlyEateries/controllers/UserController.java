@@ -26,16 +26,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@PostMapping("")
-	public ResponseEntity<UserRequestResponse> create(@Valid @RequestBody UserRequestResponse userRequestResponse){
-		
-		UserRequestResponse createdRequestResponse = this.userService.create(userRequestResponse);
-		
-		
-		return new ResponseEntity<>(createdRequestResponse,HttpStatus.CREATED);
-		
-		
-	}
+
 	
 	@PutMapping("/{id}")
      public ResponseEntity<UserRequestResponse> update(@Valid @RequestBody UserRequestResponse userRequestResponse, @PathVariable("id") Long id){

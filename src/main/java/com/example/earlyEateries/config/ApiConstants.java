@@ -5,6 +5,7 @@ public class ApiConstants {
 	public static final String BASE_URL = "api/v1/";
 	public static final String DEFAULT_PAGE_NUMBER = "0";
 	public static final String DEFAULT_PAGE_SIZE = "25";
+	public static final String IGNORE_PATH = "api/v1/auth/**";
 	
 	public class Eatery {
 		
@@ -13,6 +14,10 @@ public class ApiConstants {
 	
 	public class User{
 		public static final String END_POINT = BASE_URL + "user";
+	}
+	
+	public class Authentication{
+		public static final String END_POINT = BASE_URL + "auth";
 	}
 	
 	public class Comment{
